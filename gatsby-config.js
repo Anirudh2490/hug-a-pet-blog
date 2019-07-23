@@ -1,14 +1,27 @@
+const dotenv = require('dotenv')
+
+if(process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: `Kyle Mathews`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    title: `Hug A Pet - Blog`,
+    author: `HugAPet - DE`,
+    description: `Tips for having a healthy, happy pet!`,
+    siteUrl: `http://hugapet-de.firebaseapp.com`,
     social: {
       twitter: `kylemathews`,
     },
   },
   plugins: [
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

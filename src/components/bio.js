@@ -13,6 +13,7 @@ import { rhythm } from "../utils/typography"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
+    
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
         childImageSharp {
@@ -29,10 +30,26 @@ const Bio = () => {
           }
         }
       }
+      contentfulPerson(name: {eq: "Hug A Pet"}) {
+        name
+        shortBio {
+          shortBio
+        }
+        image {
+          sizes(maxWidth: 157) {
+            srcWebp
+          }
+        }
+      }
     }
   `)
 
-  const { author, social } = data.site.siteMetadata
+  // const { author, social } = data.site.siteMetadata
+  
+  const author = data.contentfulPerson.name
+  const img = data.contentfulPerson.image.sizes
+  console.log('image URL', img)
+
   return (
     <div
       style={{
@@ -54,12 +71,17 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> who lives and works in San
-        Francisco building useful things.
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
+        Pflegetipps von <strong>{author}</strong>.
+        {` `}Folgen Sie / erreichen Sie uns auf &nbsp;
+        <a style={{color:'rgb(2, 132, 137)'}} href={`https://www.facebook.com/hugapet.de/`}>
+           Facebook,
+        </a> &nbsp; 
+        <a style={{color:'rgb(2, 132, 137)'}} href={`https://www.instagram.com/hugapetofficial/`}>
+           Instagram,
+        </a> &nbsp;
+        <a style={{color:'rgb(2, 132, 137)'}} href={`https://www.linkedin.com/company/hugapet`}>
+           LinkedIn,
+        </a>&nbsp; oder rufen Sie uns an <a style={{color:'rgb(2, 132, 137)'}} href="tel:03023327742">030 233 277 42</a>
       </p>
     </div>
   )
