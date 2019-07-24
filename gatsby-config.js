@@ -5,13 +5,14 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
+  pathPrefix: `/blog`,
   siteMetadata: {
     title: `Hug A Pet - Blog`,
     author: `HugAPet - DE`,
     description: `Tips for having a healthy, happy pet!`,
     siteUrl: `http://hugapet-de.firebaseapp.com`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `hugapet`,
     },
   },
   plugins: [
@@ -76,7 +77,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/icons8-dog_footprint_filled.png`,
       },
     },
     `gatsby-plugin-offline`,
@@ -86,6 +87,14 @@ module.exports = {
       options: {
         pathToConfigModule: `src/utils/typography`,
       },
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Droid Sans', 'Droid Serif', 'Roboto']
+        }
+      }
     },
   ],
 }
