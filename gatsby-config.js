@@ -1,8 +1,9 @@
-const dotenv = require('dotenv')
+// const dotenv = require('dotenv')
 
-if(process.env.NODE_ENV !== 'production') {
-  dotenv.config()
-}
+// if(process.env.NODE_ENV !== 'production') {
+//   dotenv.config()
+// }
+const dotenv = require("dotenv").config()
 
 module.exports = {
   pathPrefix: `/blog`,
@@ -67,13 +68,12 @@ module.exports = {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
       },
     },
-    `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Gatsby Starter Blog`,
         short_name: `GatsbyJS`,
-        start_url: `/`,
+        start_url: `/blog`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
