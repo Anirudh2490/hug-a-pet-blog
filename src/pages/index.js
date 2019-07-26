@@ -4,7 +4,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
-import './index.css'
+// import './index.css'
 import Img from "gatsby-image"
 
 
@@ -23,7 +23,7 @@ class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
     // console.log(data)
-     const siteTitle = 'All Blog Posts'// data.site.siteMetadata.title
+     const siteTitle = 'Alles Blog Posts'// data.site.siteMetadata.title
     const posts = data.allContentfulBlog.edges
     // console.log('posts', posts)
     
@@ -41,9 +41,8 @@ class BlogIndex extends React.Component {
                   style={{
                     marginLeft: `auto`,
                     marginRight: `auto`,
-                    // width: '180%'
-                    maxWidth: rhythm(40),
-                    padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+                    // maxWidth: rhythm(40),
+                    // padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
                   }}
                   className='leftColumn'
                   key={node.slug}
