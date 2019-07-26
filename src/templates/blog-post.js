@@ -62,9 +62,9 @@ class BlogPostTemplate extends React.Component {
             return <img src={file["de-DE"].url} />
         },
         [BLOCKS.UL_LIST]: (node, children) => ( <div>{children}</div>),
-        // [BLOCKS.HYPERLINK]: (node, children) => {
-
-        // },
+        [BLOCKS.HYPERLINK]: (node, children) => {
+          return <a href={node.data.uri}>{node.content.value}</a>
+        },
     },
     renderMark: {
         [MARKS.BOLD]: (node, children) => (<span>{children}</span>),
