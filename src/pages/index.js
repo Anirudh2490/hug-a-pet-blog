@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 import './index.css'
+import Img from "gatsby-image"
 
 
 // var tagStyle = {
@@ -22,27 +23,27 @@ class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
     // console.log(data)
-    const siteTitle = data.site.siteMetadata.title
+     const siteTitle = 'All Blog Posts'// data.site.siteMetadata.title
     const posts = data.allContentfulBlog.edges
+    // console.log('posts', posts)
     
-
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
         <Bio />
         <div className='row'>
-          <div className='column'>
-            {posts.map(({ node }) => {
+            {posts.map(({ node, i }) => {
               const title = node.blogTitle || node.slug
+              const thumbnail = node.thumbnail
               return (
                   <div
                   style={{
-                    // marginLeft: `auto`,
+                    marginLeft: `auto`,
                     marginRight: `auto`,
-                    // width: '70%'
-                    // maxWidth: rhythm(40),
-                    // padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+                    // width: '180%'
+                    maxWidth: rhythm(40),
+                    padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
                   }}
                   className='leftColumn'
                   key={node.slug}
@@ -56,6 +57,7 @@ class BlogIndex extends React.Component {
                         {title}
                       </Link>
                     </h3>
+                    <img src={thumbnail.fixed.srcWebp} alt={thumbnail.description}/>
                     <p>Von <span style={{color:'#028489'}}>{node.author.name}, {node.author.title}</span></p>
                     <p>{node.publishTime}</p>
                     <p>{node.summary}</p>
@@ -66,15 +68,10 @@ class BlogIndex extends React.Component {
                   ))}
               </div>
               )})}
-            </div>
-            <div className='column'>
-              <div>Inquiry form</div>
-              <div>Popular Categories</div>
-            </div>
         </div>
       </Layout>
     )
-  }
+}
 }
 
 export default BlogIndex
@@ -95,6 +92,12 @@ export const pageQuery = graphql`
           author {
             name
             title
+          }
+          thumbnail {
+            description
+            fixed {
+              srcWebp
+            }
           }
           slug
           tags
