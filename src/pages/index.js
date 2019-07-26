@@ -56,7 +56,9 @@ class BlogIndex extends React.Component {
                         {title}
                       </Link>
                     </h3>
-                    <img src={thumbnail.fixed.srcWebp} alt={thumbnail.description}/>
+                    <Link style={{color:"rgb(15, 52, 53)", boxShadow: `none` }} to={node.slug}>
+                      <img src={thumbnail.fixed.srcWebp} alt={thumbnail.description} key={i}/>
+                    </Link>
                     <p>Von <span style={{color:'#028489'}}>{node.author.name}, {node.author.title}</span></p>
                     <p>{node.publishTime}</p>
                     <p>{node.summary}</p>
