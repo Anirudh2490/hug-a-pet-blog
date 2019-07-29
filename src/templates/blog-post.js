@@ -54,11 +54,13 @@ class BlogPostTemplate extends React.Component {
     const options = {
       renderNode: {  
         [BLOCKS.PARAGRAPH]: (node, children) => <p>{children}</p>,
+        [BLOCKS.HEADING_1]: (node, children) => ( <h1>{children}</h1>),
         [BLOCKS.HEADING_2]: (node, children) => ( <h2>{children}</h2>),
+        [BLOCKS.HEADING_3]: (node, children) => ( <h3>{children}</h3>),
         [BLOCKS.EMBEDDED_ASSET]: (node) => {
-            console.log("node value: ", node)
+            // console.log("node value: ", node)
             const {title, description, file} = node.data.target.fields;
-            console.log(title, description, file);
+            // console.log(title, description, file);
             return <img src={file["de-DE"].url} />
         },
         [BLOCKS.UL_LIST]: (node, children) => ( <div>{children}</div>),
@@ -73,7 +75,7 @@ class BlogPostTemplate extends React.Component {
     }
     };
 
-    console.log(documentToReactComponents(richText, options));
+    console.log('document2reactComponent', documentToReactComponents(richText, options));
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -89,16 +91,7 @@ class BlogPostTemplate extends React.Component {
         >
           {post.blogTitle}
         </h1>
-        {/* <p
-          style={{
-            ...scale(-1 / 5),
-            display: `block`,
-            marginBottom: rhythm(1),
-          }}
-        >
-          {post.frontmatter.date}
-        </p> */}
-        {/* <div dangerouslySetInnerHTML={{ __html: post.html }} /> */}
+        <img src={post.thumbnail.fixed.srcWebp} alt={post.thumbnail.description}/>
         {documentToReactComponents(richText, options)}
         <hr
           style={{
@@ -147,6 +140,12 @@ export const pageQuery = graphql`
     }
     contentfulBlog( slug: { eq: $slug}) {
       blogTitle
+      thumbnail {
+        description
+        fixed {
+          srcWebp
+        }
+      }
       summary
       content {
         json
