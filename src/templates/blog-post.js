@@ -9,40 +9,6 @@ import { rhythm, scale } from "../utils/typography"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-// const Post = ({document}) => {
-//     console.log('document: ', document)
-//     const options = {
-//     renderNode: {
-        
-//         [BLOCKS.PARAGRAPH]: (node, children) => <p>{children}</p>,
-//         [BLOCKS.HEADING_2]: (node, children) => ( <h2>{children}</h2>),
-//         [BLOCKS.EMBEDDED_ASSET]: (node) => {
-//             console.log("node value: ", node)
-//             const {title, description, file} = node.data.target.fields;
-//             console.log(title, description, file);
-//             return <img src={file["de-DE"].url} />
-//         },
-//         [BLOCKS.UL_LIST]: (node, children) => ( <div>{children}</div>),
-//         [BLOCKS.HYPERLINK]: (node, children) => {
-//         },
-//     },
-//     renderMark: {
-//         [MARKS.BOLD]: (node, children) => (<span>{children}</span>),
-//         [MARKS.ITALIC]: (node,children) => (<span>{children}</span>),
-//         [MARKS.UNDERLINE]: (node,children) => (<span>{children}</span>)
-//     }
-//     };
-
-//     const post = documentToReactComponents(document && document.fields.body, options,);
-
-//     return (
-//         <div>
-//             <h1>{document.fields.BlogTitle}</h1>
-//             {post}
-//         </div>
-//     )
-// }
-
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.contentfulBlog

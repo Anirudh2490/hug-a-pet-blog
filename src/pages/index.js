@@ -8,19 +8,6 @@ import { rhythm } from "../utils/typography"
 import Navbar from '../components/navigation/navbar'
 import Footer from '../components/navigation/footer'
 
-// import Img from "gatsby-image"
-
-
-// var tagStyle = {
-//   color:"#A0A0A0",
-//   textDecoration:"none",
-//   display:"inline-block",
-//   padding:".33333rem .5rem",
-//   lineHeight:"1",
-//   borderRadius:"2px",
-//   border:"1px solid #A0A0A0",
-//   marginRight:".5em"
-// }
 
 class BlogIndex extends React.Component {
   render() {
@@ -63,12 +50,15 @@ class BlogIndex extends React.Component {
                         <img src={thumbnail.fixed.srcWebp} alt={thumbnail.description} key={i}/>
                       </Link>
                       <p>Von <span style={{color:'#028489'}}>{node.author.name}, {node.author.title}</span></p>
-                      <p>{node.publishTime}</p>
+                      <p>Published on {node.publishTime}</p>
                       <p>{node.summary}</p>
                       {node.tags.map(tag => (
-                      <p style={{"fontFamily":"Roboto","color":"#028489","textDecoration":"none","display":"inline-block","padding":".33333rem .5rem","lineHeight":"1","borderRadius":"2px","border":"1px solid #028489","marginRight":".5em"}} key={tag}>  
-                        {tag}
-                      </p>
+                      <Link to={node.tag}>
+                        {console.log(node.tag)}
+                        <p style={{"fontFamily":"Roboto","color":"#028489","textDecoration":"none","display":"inline-block","padding":".33333rem .5rem","lineHeight":"1","borderRadius":"2px","border":"1px solid #028489","marginRight":".5em"}} key={tag}>  
+                          {tag}
+                        </p>
+                      </Link>
                     ))}
                 </div>
                 )})}
@@ -90,7 +80,7 @@ export const pageQuery = graphql`
       }
     }
 
-    allContentfulBlog {
+    allContentfulBlog (sort: {fields: publishTime, order: DESC}) {
       edges {
         node {
           blogTitle
@@ -105,11 +95,11 @@ export const pageQuery = graphql`
               srcWebp
             }
           }
+          publishTime (formatString: "DD / MM / YY ")
           slug
           tags
         }
       }
     }
-
     }
 `

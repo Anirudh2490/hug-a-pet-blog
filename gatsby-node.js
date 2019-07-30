@@ -1,10 +1,11 @@
 const path = require(`path`)
-
+const _ = require("lodash")
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const tagTemplate = path.resolve(`./src/templates/tag-post.js`)
   
   return graphql(
     `
@@ -14,6 +15,7 @@ exports.createPages = ({ graphql, actions }) => {
           node {
             blogTitle
             slug
+            tags
           }
         }
       }
@@ -42,6 +44,29 @@ exports.createPages = ({ graphql, actions }) => {
         },
       })
     })
+    
+    // Tag pages:
+    let tags = []
+
+    // Iterate through each post, putting all found tags into `tags`
+    _.each(posts, edge => {
+      if (_.get(edge, "node.tags")) {
+      tags = tags.concat(edge.node.tags)
+    }})
+    
+    // Eliminate duplicate tags
+    tags = _.uniq(tags)
+
+        // Make tag pages
+        tags.forEach(tag => {
+          createPage({
+            path: `/tags/${_.kebabCase(tag)}/`,
+            component: tagTemplate,
+            context: {
+              tag,
+            },
+          })
+        })
 
     return null
   })
